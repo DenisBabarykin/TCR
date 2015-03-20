@@ -20,14 +20,14 @@ namespace Service.Controllers
         // GET api/Persons
         public IQueryable<Person> GetPeople()
         {
-            return db.People;
+            return db.Persons;
         }
 
         // GET api/Persons/5
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> GetPerson(int id)
         {
-            Person person = await db.People.FindAsync(id);
+            Person person = await db.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace Service.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.People.Add(person);
+            db.Persons.Add(person);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = person.Id }, person);
@@ -89,13 +89,13 @@ namespace Service.Controllers
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> DeletePerson(int id)
         {
-            Person person = await db.People.FindAsync(id);
+            Person person = await db.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
             }
 
-            db.People.Remove(person);
+            db.Persons.Remove(person);
             await db.SaveChangesAsync();
 
             return Ok(person);
@@ -112,7 +112,7 @@ namespace Service.Controllers
 
         private bool PersonExists(int id)
         {
-            return db.People.Count(e => e.Id == id) > 0;
+            return db.Persons.Count(e => e.Id == id) > 0;
         }
     }
 }
