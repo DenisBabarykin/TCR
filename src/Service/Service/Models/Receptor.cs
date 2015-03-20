@@ -24,5 +24,8 @@ namespace Service.Models
         public int DJInsertions { get; set; }
         public int TotalInsertions { get; set; }
 
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
+
     }
 }
