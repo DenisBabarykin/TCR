@@ -10,7 +10,7 @@ namespace Service.Models
     {
         public int Id { get; set; }
         public int ReadCount { get; set; }
-        public int Percentage { get; set; }
+        public double Percentage { get; set; }
         public string NucleoSequence { get; set; }
         public string AminoSequence { get; set; }
         public string VSegments { get; set; }

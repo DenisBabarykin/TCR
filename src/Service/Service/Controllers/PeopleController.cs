@@ -13,21 +13,21 @@ using Service.Models;
 
 namespace Service.Controllers
 {
-    public class PersonsController : ApiController
+    public class PeopleController : ApiController
     {
         private ServiceContext db = new ServiceContext();
 
-        // GET api/Persons
+        // GET api/People
         public IQueryable<Person> GetPeople()
         {
-            return db.Persons;
+            return db.People;
         }
 
-        // GET api/Persons/5
+        // GET api/People/5
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> GetPerson(int id)
         {
-            Person person = await db.Persons.FindAsync(id);
+            Person person = await db.People.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
@@ -36,7 +36,7 @@ namespace Service.Controllers
             return Ok(person);
         }
 
-        // PUT api/Persons/5
+        // PUT api/People/5
         public async Task<IHttpActionResult> PutPerson(int id, Person person)
         {
             if (!ModelState.IsValid)
@@ -70,7 +70,7 @@ namespace Service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Persons
+        // POST api/People
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> PostPerson(Person person)
         {
@@ -79,23 +79,23 @@ namespace Service.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Persons.Add(person);
+            db.People.Add(person);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = person.Id }, person);
         }
 
-        // DELETE api/Persons/5
+        // DELETE api/People/5
         [ResponseType(typeof(Person))]
         public async Task<IHttpActionResult> DeletePerson(int id)
         {
-            Person person = await db.Persons.FindAsync(id);
+            Person person = await db.People.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
             }
 
-            db.Persons.Remove(person);
+            db.People.Remove(person);
             await db.SaveChangesAsync();
 
             return Ok(person);
@@ -112,7 +112,7 @@ namespace Service.Controllers
 
         private bool PersonExists(int id)
         {
-            return db.Persons.Count(e => e.Id == id) > 0;
+            return db.People.Count(e => e.Id == id) > 0;
         }
     }
 }
