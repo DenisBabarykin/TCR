@@ -8,6 +8,7 @@ namespace Service.Migrations
     using System.IO;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Configuration;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Service.Models.ServiceContext>
     {
@@ -22,14 +23,16 @@ namespace Service.Migrations
             context.People.RemoveRange(context.People);
             context.SaveChanges();
 
-            string[] files = Directory.GetFiles(@"C:\Users\Den\Repositories\TCR\InitData", "*.tcr");
+            context.Configuration.AutoDetectChangesEnabled = false;
+
+            string[] files = Directory.GetFiles(ConfigurationManager.AppSettings["InitDataPath"], "*.tcr");
             for (int i = 0; i < files.Length; ++i)
             {
                 string name = "Person" + (i + 1).ToString();
                 Person person = new Person { FirstName = name, MiddleName = name, LastName = name };
                 context.People.Add(person);
                 context.SaveChanges();
-                
+
                 FileStream fileStream = new FileStream(files[i], FileMode.Open);
                 StreamReader reader = new StreamReader(fileStream);
                 string curStr = null;
