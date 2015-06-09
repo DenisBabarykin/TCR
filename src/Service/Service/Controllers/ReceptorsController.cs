@@ -44,7 +44,7 @@ namespace Service.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != receptor.Id)
+            if (id != receptor.ReceptorId)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace Service.Controllers
             db.Receptors.Add(receptor);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = receptor.Id }, receptor);
+            return CreatedAtRoute("DefaultApi", new { id = receptor.ReceptorId }, receptor);
         }
 
         // DELETE api/Receptors/5
@@ -112,7 +112,7 @@ namespace Service.Controllers
 
         private bool ReceptorExists(int id)
         {
-            return db.Receptors.Count(e => e.Id == id) > 0;
+            return db.Receptors.Count(e => e.ReceptorId == id) > 0;
         }
     }
 }

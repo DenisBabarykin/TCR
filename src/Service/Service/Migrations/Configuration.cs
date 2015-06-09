@@ -48,9 +48,9 @@ namespace Service.Migrations
                         Percentage = Convert.ToDouble(fields[1], new NumberFormatInfo() { NumberDecimalSeparator = "." }),
                         NucleoSequence = fields[2],
                         AminoSequence = fields[3],
-                        VSegments = fields[4],
-                        JSegments = fields[5],
-                        DSegments = fields[6],
+                        //VSegments = fields[4],
+                        //JSegments = fields[5],
+                        //DSegments = fields[6],
                         LastVNucleoPos = Convert.ToInt32(fields[7]),
                         FirstDNucleoPos = Convert.ToInt32(fields[8]),
                         LastDNucleoPos = Convert.ToInt32(fields[9]),
@@ -58,7 +58,7 @@ namespace Service.Migrations
                         VDInsertions = Convert.ToInt32(fields[11]),
                         DJInsertions = Convert.ToInt32(fields[12]),
                         TotalInsertions = Convert.ToInt32(fields[13]),
-                        Person = person
+                        //Person = person
                     });
                 }
                 context.Receptors.AddRange(receptors);

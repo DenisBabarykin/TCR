@@ -13,43 +13,43 @@ using Service.Models;
 
 namespace Service.Controllers
 {
-    public class PeopleController : ApiController
+    public class SegmentController : ApiController
     {
         private ServiceContext db = new ServiceContext();
 
-        // GET api/People
-        public IQueryable<Person> GetPeople()
+        // GET api/Segment
+        public IQueryable<Segment> GetSegments()
         {
-            return db.People;
+            return db.Segments;
         }
 
-        // GET api/People/5
-        [ResponseType(typeof(Person))]
-        public async Task<IHttpActionResult> GetPerson(int id)
+        // GET api/Segment/5
+        [ResponseType(typeof(Segment))]
+        public async Task<IHttpActionResult> GetSegment(int id)
         {
-            Person person = await db.People.FindAsync(id);
-            if (person == null)
+            Segment segment = await db.Segments.FindAsync(id);
+            if (segment == null)
             {
                 return NotFound();
             }
 
-            return Ok(person);
+            return Ok(segment);
         }
 
-        // PUT api/People/5
-        public async Task<IHttpActionResult> PutPerson(int id, Person person)
+        // PUT api/Segment/5
+        public async Task<IHttpActionResult> PutSegment(int id, Segment segment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != person.PersonId)
+            if (id != segment.SegmentId)
             {
                 return BadRequest();
             }
 
-            db.Entry(person).State = EntityState.Modified;
+            db.Entry(segment).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace Service.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PersonExists(id))
+                if (!SegmentExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace Service.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/People
-        [ResponseType(typeof(Person))]
-        public async Task<IHttpActionResult> PostPerson(Person person)
+        // POST api/Segment
+        [ResponseType(typeof(Segment))]
+        public async Task<IHttpActionResult> PostSegment(Segment segment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.People.Add(person);
+            db.Segments.Add(segment);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = person.PersonId }, person);
+            return CreatedAtRoute("DefaultApi", new { id = segment.SegmentId }, segment);
         }
 
-        // DELETE api/People/5
-        [ResponseType(typeof(Person))]
-        public async Task<IHttpActionResult> DeletePerson(int id)
+        // DELETE api/Segment/5
+        [ResponseType(typeof(Segment))]
+        public async Task<IHttpActionResult> DeleteSegment(int id)
         {
-            Person person = await db.People.FindAsync(id);
-            if (person == null)
+            Segment segment = await db.Segments.FindAsync(id);
+            if (segment == null)
             {
                 return NotFound();
             }
 
-            db.People.Remove(person);
+            db.Segments.Remove(segment);
             await db.SaveChangesAsync();
 
-            return Ok(person);
+            return Ok(segment);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace Service.Controllers
             base.Dispose(disposing);
         }
 
-        private bool PersonExists(int id)
+        private bool SegmentExists(int id)
         {
-            return db.People.Count(e => e.PersonId == id) > 0;
+            return db.Segments.Count(e => e.SegmentId == id) > 0;
         }
     }
 }

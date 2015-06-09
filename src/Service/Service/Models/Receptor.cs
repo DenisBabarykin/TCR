@@ -13,9 +13,9 @@ namespace Service.Models
         public double Percentage { get; set; }
         public string NucleoSequence { get; set; }
         public string AminoSequence { get; set; }
-        public string VSegments { get; set; }
-        public string JSegments { get; set; }
-        public string DSegments { get; set; }
+        public ICollection<Segment> VSegments { get; set; }
+        public ICollection<Segment> DSegments { get; set; }
+        public ICollection<Segment> JSegments { get; set; }
         public int LastVNucleoPos { get; set; }
         public int FirstDNucleoPos { get; set; }
         public int LastDNucleoPos { get; set; }
@@ -23,11 +23,13 @@ namespace Service.Models
         public int VDInsertions { get; set; }
         public int DJInsertions { get; set; }
         public int TotalInsertions { get; set; }
-
         public ICollection<Person> People { get; set; }
 
         public Receptor()
         {
+            VSegments = new List<Segment>();
+            DSegments = new List<Segment>();
+            JSegments = new List<Segment>();
             People = new List<Person>();
         }
 
