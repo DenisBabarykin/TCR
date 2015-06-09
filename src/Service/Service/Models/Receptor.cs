@@ -8,7 +8,7 @@ namespace Service.Models
 {
     public class Receptor
     {
-        public int Id { get; set; }
+        public int ReceptorId { get; set; }
         public int ReadCount { get; set; }
         public double Percentage { get; set; }
         public string NucleoSequence { get; set; }
@@ -24,8 +24,12 @@ namespace Service.Models
         public int DJInsertions { get; set; }
         public int TotalInsertions { get; set; }
 
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
+        public ICollection<Person> People { get; set; }
+
+        public Receptor()
+        {
+            People = new List<Person>();
+        }
 
     }
 }
