@@ -47,8 +47,8 @@ namespace Service.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Receptors", "PersonId", "dbo.People");
-            DropIndex("dbo.Receptors", new[] { "PersonId" });
+            DropForeignKey("dbo.Receptors", "Id", "dbo.People");
+            DropIndex("dbo.Receptors", new[] { "Id" });
             DropTable("dbo.Receptors");
             DropTable("dbo.People");
         }

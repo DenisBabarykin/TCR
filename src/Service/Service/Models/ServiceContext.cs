@@ -23,38 +23,54 @@ namespace Service.Models
 
         public System.Data.Entity.DbSet<Service.Models.Person> People { get; set; }
 
-        public System.Data.Entity.DbSet<Service.Models.Segment> Segments { get; set; }
+        public System.Data.Entity.DbSet<Service.Models.VSegment> VSegments { get; set; }
+        public System.Data.Entity.DbSet<Service.Models.DSegment> DSegments { get; set; }
+        public System.Data.Entity.DbSet<Service.Models.JSegment> JSegments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Receptor>()
-                        .HasMany(r => r.VSegments)
-                        .WithMany(s => s.Receptors)
-                        .Map(v =>
-                        {
-                            v.ToTable("VSegments");
-                            v.MapLeftKey("ReceptorId");
-                            v.MapRightKey("SegmentId");
-                        });
+            modelBuilder.Entity<VSegment>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("VSegments");
+            });
+            modelBuilder.Entity<DSegment>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("DSegments");
+            });
+            modelBuilder.Entity<JSegment>().Map(m =>
+            {
+                m.MapInheritedProperties();
+                m.ToTable("JSegments");
+            });
 
-            modelBuilder.Entity<Receptor>()
-                        .HasMany(r => r.DSegments)
-                        .WithMany(s => s.Receptors)
+            modelBuilder.Entity<VSegment>()
+                        .HasMany(v => v.Receptors)
+                        .WithMany(r => r.VSegments)
                         .Map(v =>
                         {
-                            v.ToTable("DSegments");
-                            v.MapLeftKey("ReceptorId");
-                            v.MapRightKey("SegmentId");
+                            v.ToTable("VSegmentsReceptors");
+                            v.MapLeftKey("SegmentId");
+                            v.MapRightKey("ReceptorId");
                         });
-
-            modelBuilder.Entity<Receptor>()
-                        .HasMany(r => r.JSegments)
-                        .WithMany(s => s.Receptors)
+            modelBuilder.Entity<DSegment>()
+                        .HasMany(v => v.Receptors)
+                        .WithMany(r => r.DSegments)
                         .Map(v =>
                         {
-                            v.ToTable("JSegments");
-                            v.MapLeftKey("ReceptorId");
-                            v.MapRightKey("SegmentId");
+                            v.ToTable("DSegmentsReceptors");
+                            v.MapLeftKey("SegmentId");
+                            v.MapRightKey("ReceptorId");
+                        });
+            modelBuilder.Entity<JSegment>()
+                        .HasMany(v => v.Receptors)
+                        .WithMany(r => r.JSegments)
+                        .Map(v =>
+                        {
+                            v.ToTable("JSegmentsReceptors");
+                            v.MapLeftKey("SegmentId");
+                            v.MapRightKey("ReceptorId");
                         });
         }
     

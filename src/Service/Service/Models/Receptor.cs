@@ -8,14 +8,14 @@ namespace Service.Models
 {
     public class Receptor
     {
-        public int ReceptorId { get; set; }
+        public int Id { get; set; }
         public int ReadCount { get; set; }
         public double Percentage { get; set; }
         public string NucleoSequence { get; set; }
         public string AminoSequence { get; set; }
-        public ICollection<Segment> VSegments { get; set; }
-        public ICollection<Segment> DSegments { get; set; }
-        public ICollection<Segment> JSegments { get; set; }
+        public ICollection<VSegment> VSegments { get; set; }
+        public ICollection<DSegment> DSegments { get; set; }
+        public ICollection<JSegment> JSegments { get; set; }
         public int LastVNucleoPos { get; set; }
         public int FirstDNucleoPos { get; set; }
         public int LastDNucleoPos { get; set; }
@@ -27,9 +27,9 @@ namespace Service.Models
 
         public Receptor()
         {
-            VSegments = new List<Segment>();
-            DSegments = new List<Segment>();
-            JSegments = new List<Segment>();
+            VSegments = new List<VSegment>();
+            DSegments = new List<DSegment>();
+            JSegments = new List<JSegment>();
             People = new List<Person>();
         }
 

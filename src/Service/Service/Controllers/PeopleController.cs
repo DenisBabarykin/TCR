@@ -44,7 +44,7 @@ namespace Service.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != person.PersonId)
+            if (id != person.Id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace Service.Controllers
             db.People.Add(person);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = person.PersonId }, person);
+            return CreatedAtRoute("DefaultApi", new { id = person.Id }, person);
         }
 
         // DELETE api/People/5
@@ -112,7 +112,7 @@ namespace Service.Controllers
 
         private bool PersonExists(int id)
         {
-            return db.People.Count(e => e.PersonId == id) > 0;
+            return db.People.Count(e => e.Id == id) > 0;
         }
     }
 }
