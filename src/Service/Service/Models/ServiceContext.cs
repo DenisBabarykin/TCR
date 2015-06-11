@@ -20,9 +20,8 @@ namespace Service.Models
         }
 
         public System.Data.Entity.DbSet<Service.Models.Receptor> Receptors { get; set; }
-
         public System.Data.Entity.DbSet<Service.Models.Person> People { get; set; }
-
+        public System.Data.Entity.DbSet<Service.Models.PersonalReceptor> PersonalReceptors { get; set; }
         public System.Data.Entity.DbSet<Service.Models.VSegment> VSegments { get; set; }
         public System.Data.Entity.DbSet<Service.Models.DSegment> DSegments { get; set; }
         public System.Data.Entity.DbSet<Service.Models.JSegment> JSegments { get; set; }

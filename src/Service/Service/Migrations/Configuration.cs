@@ -32,45 +32,75 @@ namespace Service.Migrations
             FillDSegments(context);
             FillJSegments(context);
 
-            //string[] files = Directory.GetFiles(ConfigurationManager.AppSettings["InitDataPath"], "*.tcr");
-            //for (int i = 0; i < files.Length; ++i)
-            //{
-            //    string name = "Person" + (i + 1).ToString();
-            //    Person person = new Person { FirstName = name, MiddleName = name, LastName = name };
-            //    context.People.Add(person);
-            //    context.SaveChanges();
+            string[] files = Directory.GetFiles(ConfigurationManager.AppSettings["InitDataPath"], "*.tcr");
+            for (int i = 0; i < files.Length; ++i)
+            {
+                string name = "Person" + (i + 1).ToString();
+                Person person = new Person { FirstName = name, MiddleName = name, LastName = name };
+                context.People.Add(person);
+                context.SaveChanges();
 
-            //    FileStream fileStream = new FileStream(files[i], FileMode.Open);
-            //    StreamReader reader = new StreamReader(fileStream);
-            //    string curStr = null;
-            //    reader.ReadLine(); // Пропускаем названия столбцов
-            //    List<Receptor> receptors = new List<Receptor>();
+                FileStream fileStream = new FileStream(files[i], FileMode.Open);
+                StreamReader reader = new StreamReader(fileStream);
+                string curStr = null;
+                reader.ReadLine(); // Пропускаем названия столбцов/ Shifting columns' names
 
-            //    while ((curStr = reader.ReadLine()) != null)
-            //    {
-            //        string[] fields = curStr.Split('\t');
-            //        receptors.Add(new Receptor
-            //        {
-            //            //ReadCount = Convert.ToInt32(fields[0]),
-            //            //Percentage = Convert.ToDouble(fields[1], new NumberFormatInfo() { NumberDecimalSeparator = "." }),
-            //            NucleoSequence = fields[2],
-            //            AminoSequence = fields[3],
-            //            //VSegments = fields[4],
-            //            //JSegments = fields[5],
-            //            //DSegments = fields[6],
-            //            LastVNucleoPos = Convert.ToInt32(fields[7]),
-            //            FirstDNucleoPos = Convert.ToInt32(fields[8]),
-            //            LastDNucleoPos = Convert.ToInt32(fields[9]),
-            //            FirstJNucleoPos = Convert.ToInt32(fields[10]),
-            //            VDInsertions = Convert.ToInt32(fields[11]),
-            //            DJInsertions = Convert.ToInt32(fields[12]),
-            //            TotalInsertions = Convert.ToInt32(fields[13]),
-            //            //People.
-            //        });
-            //    }
-            //    context.Receptors.AddRange(receptors);
-            //    context.SaveChanges();
-            //}
+                while ((curStr = reader.ReadLine()) != null)
+                {
+                    string[] fields = curStr.Split('\t');
+                    Receptor receptor = context.Receptors.FirstOrDefault(r => r.NucleoSequence == fields[2]);
+                    if (receptor == null)
+                    {
+                        receptor = new Receptor
+                        {
+                            NucleoSequence = fields[2],
+                            AminoSequence = fields[3],
+                            LastVNucleoPos = Convert.ToInt32(fields[7]),
+                            FirstDNucleoPos = Convert.ToInt32(fields[8]),
+                            LastDNucleoPos = Convert.ToInt32(fields[9]),
+                            FirstJNucleoPos = Convert.ToInt32(fields[10]),
+                            VDInsertions = Convert.ToInt32(fields[11]),
+                            DJInsertions = Convert.ToInt32(fields[12]),
+                            TotalInsertions = Convert.ToInt32(fields[13])
+                        };
+
+                        FillSegments(context, fields, receptor);
+                        context.Receptors.Add(receptor);
+                        context.SaveChanges();
+                    }
+
+                    context.PersonalReceptors.Add(new PersonalReceptor 
+                    {
+                        ReadCount = Convert.ToInt32(fields[0]),
+                        Percentage = Convert.ToDouble(fields[1], new NumberFormatInfo() { NumberDecimalSeparator = "." }),
+                        Receptor = receptor,
+                        Person = person
+                    });
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        private static void FillSegments(Service.Models.ServiceContext context, string[] fields, Receptor receptor)
+        {
+            string[] alleles = fields[4].Split(' ');
+            foreach (string allele in alleles)
+            {
+                VSegment segment = context.VSegments.First(s => s.Alleles == allele);
+                receptor.VSegments.Add(segment);
+            }
+            alleles = fields[5].Split(' ');
+            foreach (string allele in alleles)
+            {
+                DSegment segment = context.DSegments.First(s => s.Alleles == allele);
+                receptor.DSegments.Add(segment);
+            }
+            alleles = fields[6].Split(' ');
+            foreach (string allele in alleles)
+            {
+                JSegment segment = context.JSegments.First(s => s.Alleles == allele);
+                receptor.JSegments.Add(segment);
+            }
         }
 
         private static void FillJSegments(Service.Models.ServiceContext context)
