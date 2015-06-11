@@ -19,6 +19,9 @@ namespace Service.Migrations
 
         protected override void Seed(Service.Models.ServiceContext context)
         {
+            //if (System.Diagnostics.Debugger.IsAttached == false) // Для отладки / for debugging
+            //    System.Diagnostics.Debugger.Launch();
+
             context.Receptors.RemoveRange(context.Receptors);
             context.People.RemoveRange(context.People);
             context.VSegments.RemoveRange(context.VSegments);
@@ -48,7 +51,8 @@ namespace Service.Migrations
                 while ((curStr = reader.ReadLine()) != null)
                 {
                     string[] fields = curStr.Split('\t');
-                    Receptor receptor = context.Receptors.FirstOrDefault(r => r.NucleoSequence == fields[2]);
+                    string nucleoSeq = fields[2];
+                    Receptor receptor = context.Receptors.FirstOrDefault(r => r.NucleoSequence == nucleoSeq);
                     if (receptor == null)
                     {
                         receptor = new Receptor
@@ -83,19 +87,19 @@ namespace Service.Migrations
 
         private static void FillSegments(Service.Models.ServiceContext context, string[] fields, Receptor receptor)
         {
-            string[] alleles = fields[4].Split(' ');
+            string[] alleles = fields[4].Split(new string[] {", "}, StringSplitOptions.RemoveEmptyEntries);
             foreach (string allele in alleles)
             {
                 VSegment segment = context.VSegments.First(s => s.Alleles == allele);
                 receptor.VSegments.Add(segment);
             }
-            alleles = fields[5].Split(' ');
+            alleles = fields[6].Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string allele in alleles)
             {
                 DSegment segment = context.DSegments.First(s => s.Alleles == allele);
                 receptor.DSegments.Add(segment);
             }
-            alleles = fields[6].Split(' ');
+            alleles = fields[5].Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string allele in alleles)
             {
                 JSegment segment = context.JSegments.First(s => s.Alleles == allele);
