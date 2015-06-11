@@ -21,9 +21,16 @@ namespace Service.Migrations
         {
             context.Receptors.RemoveRange(context.Receptors);
             context.People.RemoveRange(context.People);
+            context.VSegments.RemoveRange(context.VSegments);
+            context.DSegments.RemoveRange(context.DSegments);
+            context.JSegments.RemoveRange(context.JSegments);
             context.SaveChanges();
 
-            //context.Configuration.AutoDetectChangesEnabled = false;
+            context.Configuration.AutoDetectChangesEnabled = false;
+
+            FillVSegments(context);
+            FillDSegments(context);
+            FillJSegments(context);
 
             //string[] files = Directory.GetFiles(ConfigurationManager.AppSettings["InitDataPath"], "*.tcr");
             //for (int i = 0; i < files.Length; ++i)
@@ -44,8 +51,8 @@ namespace Service.Migrations
             //        string[] fields = curStr.Split('\t');
             //        receptors.Add(new Receptor
             //        {
-            //            ReadCount = Convert.ToInt32(fields[0]),
-            //            Percentage = Convert.ToDouble(fields[1], new NumberFormatInfo() { NumberDecimalSeparator = "." }),
+            //            //ReadCount = Convert.ToInt32(fields[0]),
+            //            //Percentage = Convert.ToDouble(fields[1], new NumberFormatInfo() { NumberDecimalSeparator = "." }),
             //            NucleoSequence = fields[2],
             //            AminoSequence = fields[3],
             //            //VSegments = fields[4],
@@ -58,11 +65,84 @@ namespace Service.Migrations
             //            VDInsertions = Convert.ToInt32(fields[11]),
             //            DJInsertions = Convert.ToInt32(fields[12]),
             //            TotalInsertions = Convert.ToInt32(fields[13]),
-            //            //Person = person
+            //            //People.
             //        });
             //    }
             //    context.Receptors.AddRange(receptors);
             //    context.SaveChanges();
+            //}
+        }
+
+        private static void FillJSegments(Service.Models.ServiceContext context)
+        {
+            FileStream fileStream = new FileStream(ConfigurationManager.AppSettings["InitDataPath"] + "\\trbj.seg", FileMode.Open);
+            StreamReader reader = new StreamReader(fileStream);
+            string curStr = null;
+            reader.ReadLine(); // Пропускаем названия столбцов
+            List<JSegment> jSegments = new List<JSegment>();
+
+            while ((curStr = reader.ReadLine()) != null)
+            {
+                string[] fields = curStr.Split(' ');
+                jSegments.Add(new JSegment
+                {
+                    Alleles = fields[0],
+                    CDR3_Position = Convert.ToInt32(fields[1]),
+                    FullNucleoSequence = fields[2],
+                    NucleoSequence = fields[3],
+                    NucleoSequenceP = fields[4],
+                });
+            }
+            context.JSegments.AddRange(jSegments);
+            context.SaveChanges();
+        }
+
+        private static void FillDSegments(Service.Models.ServiceContext context)
+        {
+            FileStream fileStream = new FileStream(ConfigurationManager.AppSettings["InitDataPath"] + "\\trbd.seg", FileMode.Open);
+            StreamReader reader = new StreamReader(fileStream);
+            string curStr = null;
+            reader.ReadLine(); // Пропускаем названия столбцов
+            List<DSegment> dSegments = new List<DSegment>();
+
+            while ((curStr = reader.ReadLine()) != null)
+            {
+                string[] fields = curStr.Split(' ');
+                dSegments.Add(new DSegment
+                {
+                    Alleles = fields[0],
+                    CDR3_Position = Convert.ToInt32(fields[1]),
+                    FullNucleoSequence = fields[2],
+                    NucleoSequence = fields[3],
+                    NucleoSequenceP = fields[4],
+                });
+            }
+            context.DSegments.AddRange(dSegments);
+            context.SaveChanges();
+        }
+
+        private static void FillVSegments(Service.Models.ServiceContext context)
+        {
+            FileStream fileStream = new FileStream(ConfigurationManager.AppSettings["InitDataPath"] + "\\trbv.seg", FileMode.Open);
+            StreamReader reader = new StreamReader(fileStream);
+            string curStr = null;
+            reader.ReadLine(); // Пропускаем названия столбцов
+            List<VSegment> vSegments = new List<VSegment>();
+
+            while ((curStr = reader.ReadLine()) != null)
+            {
+                string[] fields = curStr.Split(' ');
+                vSegments.Add(new VSegment
+                {
+                    Alleles = fields[0],
+                    CDR3_Position = Convert.ToInt32(fields[1]),
+                    FullNucleoSequence = fields[2],
+                    NucleoSequence = fields[3],
+                    NucleoSequenceP = fields[4],
+                });
+            }
+            context.VSegments.AddRange(vSegments);
+            context.SaveChanges();
         }
     }
 }

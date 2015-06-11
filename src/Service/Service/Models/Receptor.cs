@@ -9,8 +9,6 @@ namespace Service.Models
     public class Receptor
     {
         public int Id { get; set; }
-        public int ReadCount { get; set; }
-        public double Percentage { get; set; }
         public string NucleoSequence { get; set; }
         public string AminoSequence { get; set; }
         public ICollection<VSegment> VSegments { get; set; }
@@ -23,14 +21,14 @@ namespace Service.Models
         public int VDInsertions { get; set; }
         public int DJInsertions { get; set; }
         public int TotalInsertions { get; set; }
-        public ICollection<Person> People { get; set; }
+        public ICollection<PersonalReceptor> PersonalReceptors { get; set; }
 
         public Receptor()
         {
             VSegments = new List<VSegment>();
             DSegments = new List<DSegment>();
             JSegments = new List<JSegment>();
-            People = new List<Person>();
+            PersonalReceptors = new List<PersonalReceptor>();
         }
 
     }

@@ -13,12 +13,12 @@ namespace Service.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201503201305341_Initial"; }
+            get { return "201506111349235_Initial"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

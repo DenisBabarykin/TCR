@@ -12,11 +12,11 @@ namespace Service.Models
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public ICollection<Receptor> Receptors { get; set; }
+        public ICollection<PersonalReceptor> PersonalReceptors { get; set; }
 
         public Person()
         {
-            Receptors = new List<Receptor>();
+            PersonalReceptors = new List<PersonalReceptor>();
         }
     }
 }
