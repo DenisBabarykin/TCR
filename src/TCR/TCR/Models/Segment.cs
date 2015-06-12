@@ -11,6 +11,9 @@ namespace TCR.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+
+        [Required]
+        [Index("SegmentIndex", IsUnique = true)]
         public string Alleles { get; set; }
         public int CDR3_Position { get; set; }
         public string FullNucleoSequence { get; set; }

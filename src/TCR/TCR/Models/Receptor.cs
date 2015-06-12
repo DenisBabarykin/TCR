@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,7 +10,12 @@ namespace TCR.Models
     public class Receptor
     {
         public int Id { get; set; }
+
+        [Required]
+        [Index("ReceptorIndex", IsUnique = true)]
         public string NucleoSequence { get; set; }
+
+        [Required]
         public string AminoSequence { get; set; }
         public ICollection<VSegment> VSegments { get; set; }
         public ICollection<DSegment> DSegments { get; set; }

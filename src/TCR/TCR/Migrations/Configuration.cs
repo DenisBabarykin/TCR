@@ -27,6 +27,7 @@ namespace TCR.Migrations
             context.VSegments.RemoveRange(context.VSegments);
             context.DSegments.RemoveRange(context.DSegments);
             context.JSegments.RemoveRange(context.JSegments);
+            context.PersonalReceptors.RemoveRange(context.PersonalReceptors);
             context.SaveChanges();
 
             context.Configuration.AutoDetectChangesEnabled = false;
@@ -47,6 +48,8 @@ namespace TCR.Migrations
                 StreamReader reader = new StreamReader(fileStream);
                 string curStr = null;
                 reader.ReadLine(); // Пропускаем названия столбцов/ Shifting columns' names
+                List<Receptor> receptors = new List<Receptor>();
+                List<PersonalReceptor> personalReceptors = new List<PersonalReceptor>();
 
                 while ((curStr = reader.ReadLine()) != null)
                 {
@@ -69,19 +72,24 @@ namespace TCR.Migrations
                         };
 
                         FillSegments(context, fields, receptor);
-                        context.Receptors.Add(receptor);
-                        context.SaveChanges();
+                        //context.Receptors.Add(receptor);
+                        receptors.Add(receptor);
+                        //context.SaveChanges();
                     }
 
-                    context.PersonalReceptors.Add(new PersonalReceptor
+                    personalReceptors.Add(new PersonalReceptor
                     {
                         ReadCount = Convert.ToInt32(fields[0]),
                         Percentage = Convert.ToDouble(fields[1], new NumberFormatInfo() { NumberDecimalSeparator = "." }),
                         Receptor = receptor,
                         Person = person
                     });
-                    context.SaveChanges();
+                    //context.SaveChanges();
                 }
+
+                context.Receptors.AddRange(receptors);
+                context.PersonalReceptors.AddRange(personalReceptors);
+                context.SaveChanges();
             }
         }
 
