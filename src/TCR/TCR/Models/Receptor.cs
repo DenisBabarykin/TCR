@@ -12,6 +12,7 @@ namespace TCR.Models
         public int Id { get; set; }
 
         [Required]
+        [StringLength(100)]
         [Index("ReceptorIndex", IsUnique = true)]
         public string NucleoSequence { get; set; }
 

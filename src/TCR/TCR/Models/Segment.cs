@@ -13,7 +13,7 @@ namespace TCR.Models
         public Guid Id { get; set; }
 
         [Required]
-        [Index("SegmentIndex", IsUnique = true)]
+        [StringLength(50)]
         public string Alleles { get; set; }
         public int CDR3_Position { get; set; }
         public string FullNucleoSequence { get; set; }

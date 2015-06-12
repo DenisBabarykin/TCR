@@ -12,21 +12,20 @@ namespace TCR.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
-                        Alleles = c.String(nullable: false),
+                        Alleles = c.String(nullable: false, maxLength: 50),
                         CDR3_Position = c.Int(nullable: false),
                         FullNucleoSequence = c.String(),
                         NucleoSequence = c.String(),
                         NucleoSequenceP = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Alleles, unique: true, name: "SegmentIndex");
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Receptors",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        NucleoSequence = c.String(nullable: false),
+                        NucleoSequence = c.String(nullable: false, maxLength: 100),
                         AminoSequence = c.String(nullable: false),
                         LastVNucleoPos = c.Int(nullable: false),
                         FirstDNucleoPos = c.Int(nullable: false),
@@ -44,14 +43,13 @@ namespace TCR.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
-                        Alleles = c.String(nullable: false),
+                        Alleles = c.String(nullable: false, maxLength: 50),
                         CDR3_Position = c.Int(nullable: false),
                         FullNucleoSequence = c.String(),
                         NucleoSequence = c.String(),
                         NucleoSequenceP = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Alleles, unique: true, name: "SegmentIndex");
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.PersonalReceptors",
@@ -85,14 +83,13 @@ namespace TCR.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
-                        Alleles = c.String(nullable: false),
+                        Alleles = c.String(nullable: false, maxLength: 50),
                         CDR3_Position = c.Int(nullable: false),
                         FullNucleoSequence = c.String(),
                         NucleoSequence = c.String(),
                         NucleoSequenceP = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Alleles, unique: true, name: "SegmentIndex");
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.JSegmentsReceptors",
@@ -151,12 +148,9 @@ namespace TCR.Migrations
             DropIndex("dbo.VSegmentsReceptors", new[] { "SegmentId" });
             DropIndex("dbo.JSegmentsReceptors", new[] { "ReceptorId" });
             DropIndex("dbo.JSegmentsReceptors", new[] { "SegmentId" });
-            DropIndex("dbo.VSegments", "SegmentIndex");
             DropIndex("dbo.PersonalReceptors", new[] { "PersonId" });
             DropIndex("dbo.PersonalReceptors", new[] { "ReceptorId" });
-            DropIndex("dbo.JSegments", "SegmentIndex");
             DropIndex("dbo.Receptors", "ReceptorIndex");
-            DropIndex("dbo.DSegments", "SegmentIndex");
             DropTable("dbo.DSegmentsReceptors");
             DropTable("dbo.VSegmentsReceptors");
             DropTable("dbo.JSegmentsReceptors");

@@ -13,7 +13,7 @@ namespace TCR.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201506121122063_Initial"; }
+            get { return "201506121138472_Initial"; }
         }
         
         string IMigrationMetadata.Source
