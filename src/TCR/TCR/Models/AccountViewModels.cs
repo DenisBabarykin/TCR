@@ -5,7 +5,7 @@ namespace TCR.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
     }
 
@@ -13,51 +13,51 @@ namespace TCR.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Текущий пароль")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} должен состоять не менее, чем из {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Новый пароль")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Подтвердите новый пароль")]
+        [Compare("NewPassword", ErrorMessage = "Пароль и подтверждающий пароль не сопадают.")]
         public string ConfirmPassword { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Запомнить пароль?")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} должен состоять не менее, чем из {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Подтвердите пароль")]
+        [Compare("Password", ErrorMessage = "Пароль и подтверждающий пароль не сопадают.")]
         public string ConfirmPassword { get; set; }
     }
 }
