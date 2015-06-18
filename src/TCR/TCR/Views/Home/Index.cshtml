@@ -1,0 +1,31 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/app/controllers/LengthDivController.js"></script>
+<script src="~/Scripts/app/controllers/MenuController.js"></script>
+<script src="~/Scripts/app/controllers/RepertoireClonesController.js"></script>
+<script src="~/Scripts/app/controllers/VsegDivController.js"></script>
+<div>
+    @*<a href="/Home/menu">Меню</a><br />
+    <a href="/Home/lengthDiv">Распределение длин</a><br />
+    <a href="/Home/vsegDiv">Распределение V-сегментов</a><br />
+    <a href="/Home/repertoireClones">Количество клонов между всеми репертуарами</a><br />*@
+    <div ng-view></div>
+</div>
+
+@*@section scripts {
+    @Scripts.Render("~/Scripts/angular.min.js")
+    @Scripts.Render("~/Scripts/angular-route.min.js")
+    @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/controllers/LengthDivController.js")
+    @Scripts.Render("~/Scripts/app/controllers/MenuController.js")
+    @Scripts.Render("~/Scripts/app/controllers/RepertoireClonesController.js")
+    @Scripts.Render("~/Scripts/app/controllers/VsegDivController.js")
+}*@
