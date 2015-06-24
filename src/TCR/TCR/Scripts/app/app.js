@@ -1,4 +1,14 @@
-﻿var tcrApp = angular.module("tcrApp", [])
+﻿'use strict';
+
+google.load('visualization', '1', {
+    packages: ['corechart']
+});
+
+google.setOnLoadCallback(function () {
+    angular.bootstrap(document.body, ['tcrApp']);
+});
+
+var tcrApp = angular.module("tcrApp", [])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider.when('/Home/menu',
         {

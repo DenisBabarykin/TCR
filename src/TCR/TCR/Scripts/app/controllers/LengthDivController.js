@@ -7,6 +7,26 @@
         $scope.selectPerson = function (person) {
             $scope.selectedPerson = person;
             $scope.personSelected = true;
+
+            $http.get('../api/Service/GetLengthDiv/' + person.Id).success(function (response) {
+                $scope.lengthDivAr = response;
+                $scope.lengthDivAr.unshift(['Длина', 'Процент']);
+                var data = google.visualization.arrayToDataTable($scope.lengthDivAr);
+                var options = {
+                    height: 500,
+                    width: 900,
+                    colors: ["green"],
+                    hAxis: {
+                        title: 'Длина нуклеотидной последовательности'
+                    },
+                    vAxis: {
+                        title: 'Процент рецепторов'
+                    }
+                };
+                var chart = new google.visualization.ColumnChart(
+                  document.getElementById('length_chart'));
+                chart.draw(data, options);
+            });
         }
         $scope.returnToSelection = function () {
             $scope.personSelected = false;
