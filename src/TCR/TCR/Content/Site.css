@@ -109,5 +109,8 @@ input[type="checkbox"].input-validation-error {
     background-color: #c0392b;
   }
 }
-
 /* --- NavBar end --- */
+
+/*.panel-default > .panel-heading-custom {
+    background: #e74c3c; color: #fff;
+}*/

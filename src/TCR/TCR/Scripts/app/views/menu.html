@@ -1,5 +1,39 @@
-﻿<div >
-    <a href="/Home/lengthDiv">Распределение длин</a><br />
-    <a href="/Home/vsegDiv">Распределение V-сегментов</a><br />
-    <a href="/Home/repertoireClones">Количество клоново между всеми репертуарами</a><br />
+﻿<div class="jumbotron">
+    <h2>Web-приложение для анализа репертуаров Т-клеточных рецепторов</h2>
+</div>
+
+<div class="page-header">
+    <h2>Индивидуальные распределения:</h2>
+</div>
+<div class="list-group">
+    <a class="list-group-item" href="/Home/lengthDiv">
+        <h4 class="list-group-item-heading">
+            Распределение длин
+        </h4>
+        <p class="list-group-item-text">
+            Построение гистограммы распределения длин нуклеотидных последовательностей Т-клеточных рецепторов в репертуаре выбранного человека из базы.
+        </p>
+    </a>
+    <a class="list-group-item" href="/Home/vsegDiv">
+        <h4 class="list-group-item-heading">
+            Распределение V-сегментов
+        </h4>
+        <p class="list-group-item-text">
+            Построение гистограммы количественного распределения каждого вида V-сегмента в репертуаре выбранного человека из базы.
+        </p>
+    </a>
+</div>
+
+<div class="page-header">
+    <h2>Общие распределения:</h2>
+</div>
+<div class="list-group">
+    <a class="list-group-item" href="/Home/repertoireClones">
+        <h4 class="list-group-item-heading">
+            Распределение клонов
+        </h4>
+        <p class="list-group-item-text">
+            Построение heatmap с количествами общих клонов нуклеотидных последовательностей между всеми репертуарами в базе.
+        </p>
+    </a>
 </div>
