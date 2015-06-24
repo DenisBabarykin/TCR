@@ -29,17 +29,5 @@ namespace TCR.Controllers
 
             return View();
         }
-
-        //[Route("api/Home/GetLengthDiv")]
-        //public IEnumerable<int[]> GetLengthDiv()
-        //{
-        //    var result = new List<int[]>();
-        //    result.Add(new int[2] { 50, 400 });
-        //    result.Add(new int[2] { 51, 460 });
-        //    result.Add(new int[2] { 49, 1120 });
-        //    result.Add(new int[2] { 52, 540 });
-
-        //    return result;
-        //}
     }
 }
