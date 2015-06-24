@@ -13,11 +13,11 @@ namespace TCR
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "HomeOverride",
-                url: "Home/{*.}",
-                defaults: new { controller = "Home", action = "Index" }
-                );
+            //routes.MapRoute(
+            //    name: "HomeOverride",
+            //    url: "Home/{*.}",
+            //    defaults: new { controller = "Home", action = "Index" }
+            //    );
 
             routes.MapRoute(
                 name: "HomeMenu",

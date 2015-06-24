@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -11,6 +12,9 @@ namespace TCR
         {
             // Web API configuration and services
 
+            // Use camel case for JSON data.
+            //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -19,6 +23,9 @@ namespace TCR
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // отключаем возможность вывода данных в формате xml (чтобы был сразу JSON)
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }
