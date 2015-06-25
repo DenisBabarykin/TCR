@@ -13,6 +13,13 @@ using TCR.Models;
 
 namespace TCR.Controllers
 {
+    public class HeatmapDataContainer
+    {
+        public List<string> Reperoires { get; set; }
+
+        public List<int[]> Data { get; set; }
+    };
+
     [Authorize]
     public class ServiceController : ApiController
     {
@@ -57,6 +64,18 @@ namespace TCR.Controllers
                 result.Add(kv);
 
             return result;
+        }
+
+        [Route("api/Service/GetClones")]
+        public HeatmapDataContainer GetClones()
+        {
+            var res = new HeatmapDataContainer()
+            {
+                Reperoires = new List<string>() { "Rep1", "Rep2", "Rep3", "Rep4", "Rep5", "Rep6" },
+                Data = new List<int[]>() { new int[3] { 0, 0, 10 }, new int[3] { 0, 1, 20 }, new int[3] { 2, 3, 50 } }
+            };
+
+            return res;
         }
 
         protected override void Dispose(bool disposing)
