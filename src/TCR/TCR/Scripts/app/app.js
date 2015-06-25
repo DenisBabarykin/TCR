@@ -8,7 +8,7 @@ google.setOnLoadCallback(function () {
     angular.bootstrap(document.body, ['tcrApp']);
 });
 
-var tcrApp = angular.module("tcrApp", [])
+var tcrApp = angular.module("tcrApp", ["highcharts-ng"])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider.when('/Home/menu',
         {
