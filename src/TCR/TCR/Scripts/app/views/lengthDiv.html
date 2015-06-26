@@ -45,8 +45,24 @@
             </span>
         </div>
 
-        <div id="length_chart" style="width: 900px; height: 500px;"></div>
+        <div ng-show="chartDrawn">
+            <div id="length_chart" style="width: 900px; height: 500px;"></div>
+            <div class="btn btn-primary btn-lg" role="button" ng-click="returnToSelection();">Вернуться к выбору репертуара</div>
+        </div>
 
-        <div class="btn btn-primary btn-lg" role="button" ng-click="returnToSelection();">Вернуться к выбору репертуара</div>
+        <div ng-hide="chartDrawn">
+            <div class="loader-inner ball-spin-fade-loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="btn btn-primary btn-lg" role="button" ng-click="returnToSelection();" style="margin-top: 100px">Вернуться к выбору репертуара</div>
+        </div>
+        
     </div>
 </div>

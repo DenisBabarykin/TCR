@@ -1,9 +1,10 @@
 ﻿tcrApp.controller("VsegDivController",
     function ($scope, $http) {
+        $scope.chartDrawn = false;
+        $scope.personSelected = false;
         $http.get('../api/People').success(function (response) {
             $scope.people = response;
         });
-        $scope.personSelected = false;
         $scope.selectPerson = function (person) {
             $scope.selectedPerson = person;
             $scope.personSelected = true;
@@ -26,10 +27,12 @@
                 };
                 var chart = new google.visualization.BarChart(document.getElementById('vseg_chart'));
                 chart.draw(data, options);
+                $scope.chartDrawn = true;
             });
         }
         $scope.returnToSelection = function () {
             $scope.personSelected = false;
+            $scope.chartDrawn = false;
         }
     }
 );

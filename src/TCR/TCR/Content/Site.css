@@ -111,6 +111,9 @@ input[type="checkbox"].input-validation-error {
 }
 /* --- NavBar end --- */
 
-/*.panel-default > .panel-heading-custom {
-    background: #e74c3c; color: #fff;
-}*/
+.ball-spin-fade-loader > div 
+{
+  background: red;
+  margin-left: 40px;
+  margin-top: 40px;
+}
