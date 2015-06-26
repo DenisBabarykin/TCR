@@ -1,5 +1,12 @@
 ﻿tcrApp.controller("RepertoireClonesController",
     function ($scope, $http) {
+        $scope.loaded = false;
+        $scope.chartConfig = {
+            loading: true,
+            title: {
+                text: 'Коэффициенты количества общих клонотипов'
+            }
+        };
         $http.get('../api/Service/GetClones').success(function (response) {
             $scope.chartConfig = {
                 options: {
@@ -37,7 +44,7 @@
                 },
 
                 title: {
-                    text: 'Количество общих клонотипов'
+                    text: 'Коэффициенты количества общих клонотипов'
                 },
 
                 series: [{
