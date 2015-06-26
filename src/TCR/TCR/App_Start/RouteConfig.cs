@@ -18,6 +18,11 @@ namespace TCR
             //    url: "Home/{*.}",
             //    defaults: new { controller = "Home", action = "Index" }
             //    );
+            routes.MapRoute(
+                name: "AccMan",
+                url: "Account/Manage",
+                defaults: new { controller = "Account", action = "Manage"}
+                );
 
             routes.MapRoute(
                 name: "HomeMenu",
