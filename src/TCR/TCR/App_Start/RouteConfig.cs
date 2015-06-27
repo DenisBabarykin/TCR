@@ -40,8 +40,23 @@ namespace TCR
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
                 );
             routes.MapRoute(
+                name: "HomeDsegDiv",
+                url: "Home/dsegDiv",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                );
+            routes.MapRoute(
+                name: "HomeJsegDiv",
+                url: "Home/jsegDiv",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                );
+            routes.MapRoute(
                 name: "HomeRepertoireClones",
                 url: "Home/repertoireClones",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                );
+            routes.MapRoute(
+                name: "HomeRepertoireCountClones",
+                url: "Home/repertoireCountClones",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
                 );
 

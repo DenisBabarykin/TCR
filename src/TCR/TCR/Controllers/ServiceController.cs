@@ -59,6 +59,54 @@ namespace TCR.Controllers
             return result;
         }
 
+        [Route("api/Service/GetDsegDiv/{id}")]
+        public IEnumerable<KeyValuePair<string, int>> GetDsegDiv(int id)
+        {
+            var receptors = db.PersonalReceptors
+                .Where(rec => rec.PersonId == id)
+                .Include(p => p.Receptor)
+                .Select(p => p.Receptor)
+                .Include(p => p.DSegments);
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            foreach (var rec in receptors)
+            {
+                foreach (var dseg in rec.DSegments)
+                    if (dic.ContainsKey(dseg.Alleles))
+                        dic[dseg.Alleles] += 1;
+                    else
+                        dic.Add(dseg.Alleles, 1);
+            }
+            List<KeyValuePair<string, int>> result = new List<KeyValuePair<string, int>>();
+            foreach (KeyValuePair<string, int> kv in dic)
+                result.Add(kv);
+
+            return result;
+        }
+
+        [Route("api/Service/GetJsegDiv/{id}")]
+        public IEnumerable<KeyValuePair<string, int>> GetJsegDiv(int id)
+        {
+            var receptors = db.PersonalReceptors
+                .Where(rec => rec.PersonId == id)
+                .Include(p => p.Receptor)
+                .Select(p => p.Receptor)
+                .Include(p => p.JSegments);
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            foreach (var rec in receptors)
+            {
+                foreach (var jseg in rec.JSegments)
+                    if (dic.ContainsKey(jseg.Alleles))
+                        dic[jseg.Alleles] += 1;
+                    else
+                        dic.Add(jseg.Alleles, 1);
+            }
+            List<KeyValuePair<string, int>> result = new List<KeyValuePair<string, int>>();
+            foreach (KeyValuePair<string, int> kv in dic)
+                result.Add(kv);
+
+            return result;
+        }
+
         [Route("api/Service/GetClones")]
         public HeatmapDataContainer GetClones()
         {
@@ -80,6 +128,28 @@ namespace TCR.Controllers
                     intersections /= amount[i];
                     intersections /= amount[j];
                     intersections *= 10e6;
+                    intersections = Math.Round(intersections, 3);
+                    res.Data.Add(new double[3] { i, j, intersections });
+                    res.Data.Add(new double[3] { j, i, intersections });
+                }
+
+            return res;
+        }
+
+        [Route("api/Service/GetCountClones")]
+        public HeatmapDataContainer GetCountClones()
+        {
+            HeatmapDataContainer res = new HeatmapDataContainer();
+            int count = db.People.Count();
+            for (int i = 1; i <= count; ++i)
+                res.Repertoires.Add("Rep. " + i.ToString());
+
+            for (int i = 0; i < count - 1; ++i)
+                for (int j = i + 1; j < count; ++j)
+                {
+                    double intersections = db.PersonalReceptors
+                        .Count(prec => prec.PersonId == i + 1 && db.PersonalReceptors
+                            .Any(prec2 => prec.ReceptorId == prec2.ReceptorId && prec2.PersonId == j + 1));
                     intersections = Math.Round(intersections, 3);
                     res.Data.Add(new double[3] { i, j, intersections });
                     res.Data.Add(new double[3] { j, i, intersections });

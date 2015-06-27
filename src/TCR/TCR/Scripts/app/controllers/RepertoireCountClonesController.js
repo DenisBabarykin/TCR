@@ -1,14 +1,14 @@
-﻿tcrApp.controller("RepertoireClonesController",
+﻿tcrApp.controller("RepertoireCountClonesController",
     function ($scope, $http) {
         $scope.loaded = false;
         $scope.chartConfig = {
             loading: true,
             title: {
-                text: 'Коэффициенты количества общих клонотипов'
+                text: 'Количество общих клонотипов'
             }
         };
         $scope.init = function () {
-            $http.get('../api/Service/GetClones').success(function (response) {
+            $http.get('../api/Service/GetCountClones').success(function (response) {
                 $scope.chartConfig = {
                     options: {
                         chart: {
@@ -21,7 +21,7 @@
                         },
                         tooltip: {
                             formatter: function () {
-                                return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> имеет коэффциент <br><b>' +
+                                return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> имеет <br><b>' +
                                     this.point.value + '</b> общих клонотипов с <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
                             }
                         },
@@ -43,11 +43,11 @@
                     },
 
                     title: {
-                        text: 'Коэффициенты количества общих клонотипов'
+                        text: 'Количество общих клонотипов'
                     },
 
                     series: [{
-                        name: 'Коэффициенты количества общих клонотипов',
+                        name: 'Количество общих клонотипов',
                         borderWidth: 1,
                         data: response.Data,
                         dataLabels: {
