@@ -13,7 +13,7 @@ using TCR.Models;
 
 namespace TCR.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ServiceController : ApiController
     {
         private TCRContext db = new TCRContext();
@@ -62,26 +62,23 @@ namespace TCR.Controllers
         [Route("api/Service/GetClones")]
         public HeatmapDataContainer GetClones()
         {
-            //var res = new HeatmapDataContainer()
-            //{
-            //    Repertoires = new List<string>() { "Rep1", "Rep2", "Rep3", "Rep4", "Rep5", "Rep6" },
-            //    Data = new List<int[]>() { new int[3] { 0, 0, 10 }, new int[3] { 0, 1, 20 }, new int[3] { 2, 3, 50 } }
-            //};
             HeatmapDataContainer res = new HeatmapDataContainer();
             int count = db.People.Count();
             for (int i = 1; i <= count; ++i)
                 res.Repertoires.Add("Rep. " + i.ToString());
 
-            List<List<PersonalReceptor> > repertoires = new List<List<PersonalReceptor> >();
-            for (int i = 1; i <= count; ++i)
-                repertoires.Add(db.PersonalReceptors.Where(p => p.PersonId == i).ToList());
+            int[] amount = new int[count];
+            for (int i = 0; i < count; ++i)
+                amount[i] = db.PersonalReceptors.Count(p => p.PersonId == i + 1);
 
             for (int i = 0; i < count - 1; ++i)
                 for (int j = i + 1; j < count; ++j)
                 {
-                    double intersections = repertoires[i].Intersect(repertoires[j], new PersonalReceptorComparer()).Count();
-                    intersections /= repertoires[i].Count();
-                    intersections /= repertoires[j].Count();
+                    double intersections = db.PersonalReceptors
+                        .Count(prec => prec.PersonId == i + 1 && db.PersonalReceptors
+                            .Any(prec2 => prec.ReceptorId == prec2.ReceptorId && prec2.PersonId == j + 1));
+                    intersections /= amount[i];
+                    intersections /= amount[j];
                     intersections *= 10e6;
                     intersections = Math.Round(intersections, 3);
                     res.Data.Add(new double[3] { i, j, intersections });
