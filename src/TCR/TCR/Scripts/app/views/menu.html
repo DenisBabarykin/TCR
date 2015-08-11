@@ -1,0 +1,68 @@
+﻿<div class="jumbotron" style="margin-top: 5px;">
+    <h2>Web-приложение для анализа репертуаров Т-клеточных рецепторов</h2>
+</div>
+
+<div class="page-header">
+    <h2>Индивидуальные распределения:</h2>
+</div>
+<div class="list-group">
+    <a class="list-group-item" href="/Home/lengthDiv">
+        <h4 class="list-group-item-heading">
+            Распределение длин
+        </h4>
+        <p class="list-group-item-text">
+            Построение гистограммы распределения длин нуклеотидных последовательностей Т-клеточных рецепторов в репертуаре выбранного человека из базы.
+        </p>
+    </a>
+    <a class="list-group-item" href="/Home/vsegDiv">
+        <h4 class="list-group-item-heading">
+            Распределение V-сегментов
+        </h4>
+        <p class="list-group-item-text">
+            Построение гистограммы количественного распределения каждого вида V-сегмента в репертуаре выбранного человека из базы.
+        </p>
+    </a>
+    <a class="list-group-item" href="/Home/dsegDiv">
+        <h4 class="list-group-item-heading">
+            Распределение D-сегментов
+        </h4>
+        <p class="list-group-item-text">
+            Построение гистограммы количественного распределения каждого вида D-сегмента в репертуаре выбранного человека из базы.
+        </p>
+    </a>
+    <a class="list-group-item" href="/Home/jsegDiv">
+        <h4 class="list-group-item-heading">
+            Распределение J-сегментов
+        </h4>
+        <p class="list-group-item-text">
+            Построение гистограммы количественного распределения каждого вида J-сегмента в репертуаре выбранного человека из базы.
+        </p>
+    </a>
+</div>
+
+<div class="page-header">
+    <h2>Общие распределения:</h2>
+</div>
+<div class="list-group">
+    <a class="list-group-item" href="/Home/repertoireCountClones">
+        <h4 class="list-group-item-heading">
+            Распределение количества клонотипов
+        </h4>
+        <p class="list-group-item-text">
+            Построение heatmap с количеством общих клонотипов нуклеотидных
+            последовательностей между всеми репертуарами в базе.
+        </p>
+    </a>
+    <a class="list-group-item" href="/Home/repertoireClones">
+        <h4 class="list-group-item-heading">
+            Распределение коэффициентов клонотипов
+        </h4>
+        <p class="list-group-item-text">
+            Построение heatmap с коэффициентами количества общих клонотипов нуклеотидных
+            последовательностей между всеми репертуарами в базе. Коэффициенты рассчитываются
+            делением количества общих клонотипов на произведение объёмов рассмотренных репертуаров
+            и домножением на константу для нормализации результатов.
+        </p>
+    </a>
+</div>
+

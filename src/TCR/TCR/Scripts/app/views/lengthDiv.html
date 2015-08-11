@@ -1,0 +1,66 @@
+﻿<div class="page-header">
+    <h2>Распределение длин</h2>
+    Построение гистограммы распределения длин нуклеотидных последовательностей Т-клеточных рецепторов в репертуаре выбранного человека из базы.
+</div>
+<div ng-hide="personSelected">
+    <h3>Выберите человека, чей репертуар будет рассмотрен</h3>
+    <div class="panel panel-primary" style="margin-top: 15px;">
+        <div class="panel-heading">Доступные репертуары</div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="person in people" ng-click="selectPerson(person);">
+                <tr>
+                    <th scope="row">{{person.Id}}</th>
+                    <td>{{person.LastName}}</td>
+                    <td>{{person.FirstName}}</td>
+                    <td>{{person.MiddleName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div ng-show="personSelected">
+    Выбран человек:
+    <div style="margin-top: 15px; margin-bottom: 20px;">
+        <span class="well well-sm" style="margin-right: 10px;">
+            <b>Id:</b> {{selectedPerson.Id}}
+        </span>
+        <span class="well well-sm" style="margin-right: 10px;">
+            <b>Фамилия:</b> {{selectedPerson.LastName}}
+        </span>
+        <span class="well well-sm" style="margin-right: 10px;">
+            <b>Имя:</b> {{selectedPerson.FirstName}}
+        </span>
+        <span class="well well-sm" style="margin-right: 10px;">
+            <b>Отчество:</b> {{selectedPerson.MiddleName}}
+        </span>
+    </div>
+
+    <div ng-show="chartDrawn">
+        <div id="length_chart" style="width: 900px; height: 500px;"></div>
+        <div class="btn btn-primary btn-lg" role="button" ng-click="returnToSelection();">Вернуться к выбору репертуара</div>
+    </div>
+
+    <div ng-hide="chartDrawn">
+        <div class="loader-inner ball-spin-fade-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="btn btn-primary btn-lg" role="button" ng-click="returnToSelection();" style="margin-top: 100px">Вернуться к выбору репертуара</div>
+    </div>
+
+</div>

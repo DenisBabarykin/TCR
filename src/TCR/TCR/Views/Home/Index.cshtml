@@ -1,0 +1,20 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/app/controllers/LengthDivController.js"></script>
+<script src="~/Scripts/app/controllers/MenuController.js"></script>
+<script src="~/Scripts/app/controllers/RepertoireClonesController.js"></script>
+<script src="~/Scripts/app/controllers/RepertoireCountClonesController.js"></script>
+<script src="~/Scripts/app/controllers/VsegDivController.js"></script>
+<script src="~/Scripts/app/controllers/DsegDivController.js"></script>
+<script src="~/Scripts/app/controllers/JsegDivController.js"></script>
+<div>
+    <div ng-view></div>
+</div>
